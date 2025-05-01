@@ -1,0 +1,109 @@
+Задание: написать приложение для хранения данных о автомобиле (todo list)
+
+1. Функционал (то есть что программа делает?)
+2. Как мы храним данные (entity)
+3. Какие операции с данными мы будем совершать
+4. Список запросов, которые мы будем готовы обслуживать
+
+
+1. Хранение, добавление, поиск и удаление данных по запросу пользователя
+
+2.
+Car
+-------
+    Integer carId;
+    String model;
+    String color;
+    Integer yearOfProduction;
+    String engine;
+    Integer mileage;
+    Producer producer;
+
+
+Producer
+---------
+
+    Integer producerId;
+    String name;
+    String phoneNumber;
+    String email;
+    String password;
+
+
+
+
+DTO
+-------
+
+
+ProducerRequestDto
+----------------------
+
+String name;
+String phoneNumber;
+String email;
+String password;
+
+
+ProducerResponseDto
+----------------------
+
+Integer producerId;
+String name;
+String phoneNumber;
+String email;
+
+  CarRequestDto:
+  ----------------
+    String model;
+    String color;
+    Integer yearOfProduction;
+    String engine;
+    Integer mileage;
+
+
+  CarResponseDto:
+    ----------------
+    Integer carId;
+    String model;
+    String color;
+    Integer yearOfProduction;
+    String engine;
+    Integer mileage;
+    ProducerResponse producerResponse;
+
+
+3. CRUD
+- create
+- read
+- update
+- delete
+
+4. Запросы:
+
+- post запрос на добавление нового car
+Car createCar(Car newCar, Producer carProducer);
+
+- get запрос найти все cars
+ List<Car> findAll();
+
+- get запрос найти car по ее id
+Optional<Car> findById(Integer id);
+
+
+- get запрос найти все cars по модели
+List<Car> findByProducer(Producer producer);
+
+- get запрос найти авто по году выпуска
+List<Car> findByYear(Integer year);
+
+- get запрос найти авто по производителю
+List<Car> findByProducer(Producer producer);
+
+- put запрос обновить авто
+Optional<Car> updateCar(Integer carId, Integer year, Integer mileage, String color);
+
+- delete запрос удалить авто по id
+ Optional<Car> deleteCarById(Integer id);
+
+
