@@ -33,6 +33,7 @@ public class Producer {
 
     @NotBlank(message = "Email must be not blank")
     @Email(message = "Incorrect email format")
+    @Column(nullable = false, unique = true)
     private String email;
 
     private String password;
