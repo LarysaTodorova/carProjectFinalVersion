@@ -18,6 +18,10 @@ public class UpdateProducerService {
 
     public ProducerResponse updateProducer(Integer id, String email, String phoneNumber) {
 
+        if (email == null || email.isBlank() || phoneNumber == null || phoneNumber.isBlank()) {
+            throw new IllegalArgumentException("Email and phone number must not be null or blank");
+        }
+
         Optional<Producer> optionalProducer = repository.updateProducer(id, email, phoneNumber);
 
         if (optionalProducer.isEmpty()) {
