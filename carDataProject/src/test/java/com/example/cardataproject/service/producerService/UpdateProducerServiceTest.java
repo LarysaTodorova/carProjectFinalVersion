@@ -64,6 +64,16 @@ class UpdateProducerServiceTest {
     }
 
 
+    @Test
+    void updateProducerWithNullEmail() {
+        assertThrows(IllegalArgumentException.class, () ->
+                updateService.updateProducer(1, null, "123456"));
+    }
 
+    @Test
+    void updateProducerWithEmptyEmail() {
+        assertThrows(IllegalArgumentException.class, () ->
+                updateService.updateProducer(1, "", "123456"));
+    }
 
 }
