@@ -6,14 +6,14 @@ import com.example.cardataproject.dto.producerDTO.ProducerRequest;
 import com.example.cardataproject.entity.Car;
 import com.example.cardataproject.entity.Producer;
 import com.example.cardataproject.repository.CarRepository;
+import com.example.cardataproject.service.exception.AlreadyExistException;
 import com.example.cardataproject.service.producerService.FindProducerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -88,6 +88,56 @@ class AddCarServiceTest {
         verify(carRepository).save(any(Car.class));
         verify(findProducerService).getEntityByName("Tesla");
 
+    }
+
+    @Test
+    void createCarAlreadyExist() {
+
+        ProducerRequest producerRequest = new ProducerRequest(
+                "Tesla",
+                "+1-111-111",
+                "tesla@example.com",
+                "securePass"
+        );
+
+        CarRequest carRequest = new CarRequest(
+                123456,
+                "Model X",
+                "Black",
+                2023,
+                "Electric",
+                15000,
+                producerRequest
+        );
+
+        Producer producer = new Producer(
+                "Tesla",
+                "+1-111-111",
+                "tesla@example.com",
+                "securePass"
+        );
+
+        Car existingCar = new Car(
+                1,
+                123456,
+                "Model X",
+                "Black",
+                2023,
+                "Electric",
+                15000,
+                producer
+        );
+
+        when(carRepository.findByVin(123456)).thenReturn(Optional.of(existingCar));
+
+        AlreadyExistException exception = assertThrows(
+                AlreadyExistException.class,
+                () -> addCarService.createCar(carRequest)
+        );
+
+        assertTrue(exception.getMessage().contains("already exist"));
+        verify(carRepository, never()).save(any(Car.class));
+        verify(findProducerService, never()).getEntityByName(anyString());
     }
 
 }
