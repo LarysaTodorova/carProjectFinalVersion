@@ -35,7 +35,7 @@ class UpdateProducerServiceTest {
         );
 
         when(repository.updateProducer(1, "audi@company.com", "123456"))
-                .thenReturn(Optional.of(producer));
+                .thenReturn(Optional.of(producer)); //если кто -нибудь вызовет repository.updateProducer, то верни Optional.of(producer)
 
         ProducerResponse response = updateService.updateProducer(1, "audi@company.com", "123456");
 
