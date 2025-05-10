@@ -1,6 +1,5 @@
 package com.example.cardataproject.controller;
 
-import com.example.cardataproject.dto.producerDTO.ProducerRequest;
 import com.example.cardataproject.dto.producerDTO.ProducerResponse;
 import com.example.cardataproject.service.producerService.AddProducerService;
 import com.example.cardataproject.service.producerService.DeleteProducerService;
@@ -42,7 +41,6 @@ class ProducerControllerTest {
     @Test
     void createNewProducer() throws Exception {
 
-        ProducerRequest request = new ProducerRequest("BMW", "123456", "bmw@mail.com", "99999");
         ProducerResponse response = new ProducerResponse(1, "BMW", "123456", "bmw@mail.com");
 
         when(addProducerService.createProducer(any())).thenReturn(response);
@@ -55,7 +53,7 @@ class ProducerControllerTest {
                                   "phoneNumber": "123456",
                                   "email": "bmw@mail.com",
                                   "password": "99999"                                                                      
-                                                        }
+                                }
                                 """))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.producerId").value(1))
