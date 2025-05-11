@@ -16,9 +16,9 @@ public class UpdateCarService {
 
     private final CarRepository carRepository;
 
-    public CarResponse updateCar(Integer carId, Integer year, Integer mileage, String color) {
+    public CarResponse updateCar(Integer carId, Integer mileage, String color) {
 
-        Car carForUpdate = carRepository.updateCar(carId, year, mileage, color)
+        Car carForUpdate = carRepository.updateCar(carId, mileage, color)
                 .orElseThrow(() -> new NotFoundException("Car with id " + carId + " not found"));
 
         return new CarResponse(

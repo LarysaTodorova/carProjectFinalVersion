@@ -24,13 +24,12 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
         return optionalCar;
     }
 
-    default Optional<Car> updateCar(Integer carId, Integer year, Integer mileage, String color) {
+    default Optional<Car> updateCar(Integer carId, Integer mileage, String color) {
         Optional<Car> optionalCar = findById(carId);
 
         if (optionalCar.isPresent()) {
             Car carForUpdate = optionalCar.get();
             carForUpdate.setColor(color);
-            carForUpdate.setYearOfProduction(year);
             carForUpdate.setMileage(mileage);
             return Optional.of(save(carForUpdate));
         }

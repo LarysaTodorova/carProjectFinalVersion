@@ -64,11 +64,10 @@ public class CarController {
         return deleteCarService.deleteCarById(id);
     }
 
-    @PutMapping("{id}") //localhost:8080/api/cars/1?year=2024&mileage=10&color=red
+    @PutMapping("{id}") //localhost:8080/api/cars/1?mileage=10&color=red
     public CarResponse updateCar(@PathVariable Integer id,
-                                 @RequestParam Integer year,
                                  @RequestParam Integer mileage,
                                  @RequestParam String color) {
-        return updateCarService.updateCar(id, year, mileage, color);
+        return updateCarService.updateCar(id, mileage, color);
     }
 }
