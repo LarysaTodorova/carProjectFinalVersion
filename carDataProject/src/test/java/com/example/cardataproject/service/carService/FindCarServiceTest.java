@@ -116,6 +116,7 @@ class FindCarServiceTest {
         List<CarResponse> actualResult = findCarService.findByProducerName("Audi");
 
         assertEquals(1, actualResult.size());
+        assertEquals("Audi", actualResult.get(0).getProducerResponse().getName());
 
     }
 
@@ -131,5 +132,58 @@ class FindCarServiceTest {
 
     }
 
+    @Test
+    void findCarByModelSuccess() {
 
+        List<Car> cars = Arrays.asList(
+                new Car(1, 123, "A-6", "Red", 2020, "V-6", 15000, new Producer("Audi", "99553377", "email@producer.com", "123-456")),
+                new Car(2, 999, "A-6", "white", 2025, "V-8", 1, new Producer(1, "Audi", "555", "audi@mail.com", "111"))
+        );
+
+        when(repository.findByModel("A-6")).thenReturn(cars);
+
+        List<CarResponse> actualResult = findCarService.findCarByModel("A-6");
+
+        assertEquals(2, actualResult.size());
+        assertEquals("A-6", actualResult.get(0).getModel());
+        assertEquals("A-6", actualResult.get(1).getModel());
+
+    }
+
+    @Test
+    void findCarByModelNotFound() {
+
+        when(repository.findByModel("A-6")).thenReturn(List.of());
+
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                () -> findCarService.findCarByModel("A-6"));
+
+        assertEquals("Car with model A-6 not found", exception.getMessage());
+    }
+
+    @Test
+    void findCarByYearSuccess() {
+
+        List<Car> cars = Arrays.asList(
+                new Car(1, 123, "A-6", "Red", 2020, "V-6", 15000, new Producer("Audi", "99553377", "email@producer.com", "123-456")),
+                new Car(2, 999, "A-6", "white", 2025, "V-8", 1, new Producer(1, "Audi", "555", "audi@mail.com", "111"))
+        );
+
+        when(repository.findByYearOfProduction(2025)).thenReturn(cars);
+
+        List<CarResponse> actualResult = findCarService.findCarByYear(2025);
+
+        assertEquals(2025, actualResult.get(1).getYearOfProduction());
+    }
+
+    @Test
+    void findCarByYearNotFound() {
+
+        when(repository.findByYearOfProduction(2025)).thenReturn(List.of());
+
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                () -> findCarService.findCarByYear(2025));
+
+        assertEquals("Car with year 2025 not found", exception.getMessage());
+    }
 }
