@@ -15,8 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class FindCarServiceTest {
 
@@ -44,6 +43,7 @@ class FindCarServiceTest {
         List<CarResponse> actualResult = findCarService.findAll();
 
         assertEquals(2, actualResult.size());
+        verify(repository).findAll();
     }
 
     @Test
@@ -55,6 +55,7 @@ class FindCarServiceTest {
                 () -> findCarService.findAll());
 
         assertEquals("We have no any cars", exception.getMessage());
+        verify(repository).findAll();
     }
 
     @Test
@@ -67,6 +68,7 @@ class FindCarServiceTest {
         CarResponse actualResult = findCarService.findById(1);
 
         assertEquals(1, actualResult.getCarId());
+        verify(repository).findById(1);
 
     }
 
@@ -79,6 +81,7 @@ class FindCarServiceTest {
                 () -> findCarService.findById(1));
 
         assertEquals("Car with id 1 not found", actualException.getMessage());
+        verify(repository).findById(1);
     }
 
     @Test
