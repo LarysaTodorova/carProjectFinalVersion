@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -56,6 +57,77 @@ class FindProducerServiceTest {
 
         assertEquals("We have no any producers", exception.getMessage());
 
+    }
+
+    @Test
+    void findByIdSuccess() {
+
+        Producer producer = new Producer(1, "BMW", "123456", "bmw@mail.com", "111");
+
+        when(repository.findById(1)).thenReturn(Optional.of(producer));
+
+        ProducerResponse response = findProducerService.findById(1);
+
+        assertEquals(1, response.getProducerId());
+    }
+
+    @Test
+    void findByIdNotFound() {
+
+        when(repository.findById(1)).thenReturn(Optional.empty());
+
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                () -> findProducerService.findById(1));
+
+        assertEquals("producer with id 1 not found", exception.getMessage());
+    }
+
+    @Test
+    void findByNameSuccess() {
+
+        Producer producer = new Producer(1, "BMW", "123456", "bmw@mail.com", "111");
+
+        when(repository.findByName("BMW")).thenReturn(Optional.of(producer));
+
+        ProducerResponse response = findProducerService.findByName("BMW");
+
+        assertEquals("BMW", response.getName());
+    }
+
+    @Test
+    void findProducerByNameNotFound() {
+
+        when(repository.findByName("BMW")).thenReturn(Optional.empty());
+
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                () -> findProducerService.findByName("BMW"));
+
+        assertEquals("producer with name BMW not found", exception.getMessage());
+
+    }
+
+    @Test
+    void getEntityByNameSuccess() {
+
+        Producer producer = new Producer(1, "BMW", "123456", "bmw@mail.com", "111");
+
+        when(repository.findByName("BMW")).thenReturn(Optional.of(producer));
+
+        Producer actualResult = findProducerService.getEntityByName("BMW");
+
+        assertEquals("BMW", actualResult.getName());
+
+    }
+
+    @Test
+    void findEntityByNameNotFound() {
+
+        when(repository.findByName("Audi")).thenReturn(Optional.empty());
+
+        NotFoundException exception = assertThrows(NotFoundException.class,
+                () -> findProducerService.getEntityByName("Audi"));
+
+        assertEquals("Producer with name Audi not found", exception.getMessage());
     }
 
 }
