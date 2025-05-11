@@ -57,6 +57,7 @@ class DeleteCarServiceTest {
 
         assertEquals("Car with id 5 not found", exception.getMessage());
         verify(repository).findById(5);
+        verify(repository, never()).deleteCarByCarId(5);
     }
 
 }
