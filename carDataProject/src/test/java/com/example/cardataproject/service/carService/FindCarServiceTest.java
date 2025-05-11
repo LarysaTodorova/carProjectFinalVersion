@@ -80,4 +80,56 @@ class FindCarServiceTest {
 
         assertEquals("Car with id 1 not found", actualException.getMessage());
     }
+
+    @Test
+    void findByVinSuccess() {
+
+        Car car = new Car(1, 123, "A-6", "Red", 2020, "Diesel", 15000, new Producer("Audi", "99553377", "email@producer.com", "123-456"));
+
+        when(repository.findByVin(123)).thenReturn(Optional.of(car));
+
+        CarResponse actualResult = findCarService.findByVin(123);
+
+        assertEquals(123, actualResult.getVin());
+    }
+
+    @Test
+    void findByVinNotFound() {
+
+        when(repository.findByVin(123)).thenReturn(Optional.empty());
+
+        NotFoundException actualException = assertThrows(NotFoundException.class,
+                () -> findCarService.findByVin(123));
+
+        assertEquals("Car with vin 123 not found", actualException.getMessage());
+    }
+
+    @Test
+    void findByProducerNameSuccess() {
+
+        Producer producer = new Producer(1, "Audi", "99553377", "email@producer.com", "123-456");
+        when(findProducerService.getEntityByName("Audi")).thenReturn(producer);
+
+        Car car = new Car(1, 123, "A-6", "Red", 2020, "Diesel", 15000, producer);
+        when(repository.findByProducer(producer)).thenReturn(List.of(car));
+
+        List<CarResponse> actualResult = findCarService.findByProducerName("Audi");
+
+        assertEquals(1, actualResult.size());
+
+    }
+
+    @Test
+    void findByProducerNameNotFound() {
+
+        when(findProducerService.getEntityByName("Audi")).thenThrow(new NotFoundException("Producer with name Audi not found"));
+
+        NotFoundException actualException = assertThrows(NotFoundException.class,
+                () -> findCarService.findByProducerName("Audi"));
+
+        assertEquals("Producer with name Audi not found", actualException.getMessage());
+
+    }
+
+
 }

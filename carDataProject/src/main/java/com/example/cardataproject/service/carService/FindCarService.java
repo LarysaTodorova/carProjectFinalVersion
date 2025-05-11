@@ -126,7 +126,7 @@ public class FindCarService {
                 producer.getEmail()
         );
 
-        // Маппим машины в CarResponse
+        // Мапим машины в CarResponse
         return cars.stream()
                 .map(currentCar ->
                         new CarResponse(
