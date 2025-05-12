@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Data
 @AllArgsConstructor
@@ -29,8 +30,14 @@ public class User {
     private LocalDateTime data;
     private boolean isConfirmed;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "users_car_id")
-    private Car car;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "users_car_id")
+//    private Car cars;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_cars",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "carId"))
+    private Collection<Car> cars;
 
 }
