@@ -39,5 +39,4 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "carId"))
     private Collection<Car> cars;
-
 }
