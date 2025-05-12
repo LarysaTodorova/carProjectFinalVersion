@@ -15,7 +15,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "account")
+@Table(name = "renter")
 public class User {
 
     @Id
