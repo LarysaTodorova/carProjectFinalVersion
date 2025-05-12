@@ -150,6 +150,7 @@ class FindCarServiceTest {
         assertEquals(2, actualResult.size());
         assertEquals("A-6", actualResult.get(0).getModel());
         assertEquals("A-6", actualResult.get(1).getModel());
+        verify(repository).findByModel("A-6");
 
     }
 

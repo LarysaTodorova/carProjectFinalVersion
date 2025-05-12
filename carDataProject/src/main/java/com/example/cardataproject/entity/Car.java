@@ -21,11 +21,11 @@ public class Car {
     private Integer carId;
     private Integer vin;
 
-    @NotBlank(message = "model must be not blank")
+    @NotBlank(message = "model must not be blank")
     @Size(min = 1, max = 10, message = "model must be from 1 to 10 characters")
     private String model;
 
-    @NotBlank(message = "color must be not blank")
+    @NotBlank(message = "color must not be blank")
     @Size(min = 3, max = 10, message = "color must be from 2 to 10 characters")
     private String color;
 

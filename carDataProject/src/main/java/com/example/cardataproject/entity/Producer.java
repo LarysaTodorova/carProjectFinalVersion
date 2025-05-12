@@ -24,14 +24,14 @@ public class Producer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer producerId;
 
-    @NotBlank(message = "Producer name must be not blank")
+    @NotBlank(message = "Producer name must not be blank")
     @Size(min = 2, max = 10, message = "Producer name must be from 2 to 10 characters")
     @Pattern(regexp = "[A-Za-z0-9]+", message = "Producer name can contain latin character or digital only")
     private String name;
 
     private String phoneNumber;
 
-    @NotBlank(message = "Email must be not blank")
+    @NotBlank(message = "Email must not be blank")
     @Email(message = "Incorrect email format")
     @Column(nullable = false, unique = true)
     private String email;
