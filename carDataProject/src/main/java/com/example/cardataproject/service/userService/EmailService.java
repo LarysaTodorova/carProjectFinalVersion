@@ -23,7 +23,7 @@ public class EmailService {
     public void sendConfirmationCodeByEmail(User user){
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
-        mailMessage.setFrom("javalessons2024@gmail.com");
+        mailMessage.setFrom("lorajarik@gmail.com");
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Registration confirmation code");
         mailMessage.setText("Please confirm your registration code: " + user.getConfirmationCode());
