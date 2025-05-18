@@ -1,4 +1,4 @@
-package com.example.cardataproject.controller.aoi;
+package com.example.cardataproject.controller.api;
 
 import com.example.cardataproject.dto.ErrorResponseDto;
 import com.example.cardataproject.dto.userDTO.UserResponse;

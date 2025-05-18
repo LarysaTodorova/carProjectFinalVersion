@@ -1,6 +1,6 @@
 package com.example.cardataproject.controller;
 
-import com.example.cardataproject.controller.aoi.AdminApi;
+import com.example.cardataproject.controller.api.AdminApi;
 import com.example.cardataproject.dto.userDTO.UserResponse;
 import com.example.cardataproject.dto.userDTO.UserUpdateRequestDto;
 import com.example.cardataproject.entity.User;

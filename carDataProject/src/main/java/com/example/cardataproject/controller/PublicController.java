@@ -1,6 +1,6 @@
 package com.example.cardataproject.controller;
 
-import com.example.cardataproject.controller.aoi.PublicApi;
+import com.example.cardataproject.controller.api.PublicApi;
 import com.example.cardataproject.dto.userDTO.UserRequest;
 import com.example.cardataproject.dto.userDTO.UserResponse;
 import com.example.cardataproject.service.userService.UserService;
