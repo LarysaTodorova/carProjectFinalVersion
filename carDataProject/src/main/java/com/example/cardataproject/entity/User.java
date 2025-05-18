@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.HashSet;;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "renter")
+@Table(name = "car_renter")
 public class User {
 
     @Id
@@ -30,6 +32,12 @@ public class User {
     private LocalDateTime data;
     private boolean isConfirmed;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId"))
+    private Set<Role> roles;
+
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "users_car_id")
 //    private Car cars;
@@ -39,4 +47,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "carId"))
     private Collection<Car> cars;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<FileInfo> photos = new HashSet<>();
 }
