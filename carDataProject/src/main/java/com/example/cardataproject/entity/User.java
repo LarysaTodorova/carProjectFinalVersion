@@ -20,6 +20,20 @@ import java.util.Set;
 @Table(name = "car_renter")
 public class User {
 
+
+    public enum Role {
+        ADMIN,
+        USER,
+        MANAGER
+    }
+
+    public enum Status {
+        NOT_CONFIRMED,
+        CONFIRMED,
+        BANNED,
+        DELETE
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -32,21 +46,23 @@ public class User {
     private LocalDateTime data;
     private boolean isConfirmed;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId"))
-    private Set<Role> roles;
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "users_car_id")
-//    private Car cars;
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private Status status;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_cars",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "car_id", referencedColumnName = "carId"))
     private Collection<Car> cars;
+    //    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "users_car_id")
+//    private Car cars;
+
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<FileInfo> photos = new HashSet<>();

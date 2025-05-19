@@ -26,7 +26,7 @@ public class PublicController implements PublicApi {
     public ResponseEntity<UserResponse> addNewUser(@RequestBody UserRequest request){
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(service.registerUser(request));
+                .body(service.registrationSecurity(request));
     };
 
 

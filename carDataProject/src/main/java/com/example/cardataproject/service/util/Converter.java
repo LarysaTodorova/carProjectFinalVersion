@@ -23,6 +23,7 @@ public class Converter {
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())
+                .role(user.getRole().toString())
                 .data(user.getData())
                 .build();
     }

@@ -32,6 +32,7 @@ public class Car {
     private Integer yearOfProduction;
     private String engine;
     private Integer mileage;
+
     @ManyToOne
     @JoinColumn(name = "producer_producer_id")
     private Producer producer;

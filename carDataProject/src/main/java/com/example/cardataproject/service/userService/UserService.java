@@ -5,6 +5,7 @@ import com.example.cardataproject.dto.userDTO.UserResponse;
 import com.example.cardataproject.dto.userDTO.UserUpdateRequestDto;
 import com.example.cardataproject.entity.User;
 import com.example.cardataproject.repository.UserRepository;
+import com.example.cardataproject.service.exception.AlreadyExistException;
 import com.example.cardataproject.service.exception.NotFoundException;
 import com.example.cardataproject.service.util.Converter;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,29 @@ public class UserService {
     private final UserRepository repository;
     private final EmailService emailService;
     private final Converter converter;
+
+    public UserResponse registrationSecurity(UserRequest request){
+        if (repository.existsByEmail(request.getEmail())) {
+            throw new AlreadyExistException("User with email: " + request.getEmail() + " is already exist");
+        }
+
+        // ------ а вот если такого пользователя еще нет -----
+
+        User newUser = converter.fromDto(request);
+        newUser.setRole(User.Role.USER); // по умолчанию даем пользователю роль USER
+        newUser.setStatus(User.Status.NOT_CONFIRMED);
+        newUser.setData(LocalDateTime.now());
+
+        repository.save(newUser);
+
+        // после создания нового пользователя необходимо создать
+        // новый код подтверждения для него и отправить ему на почту
+
+        emailService.sendConfirmationCodeByEmail(newUser);
+
+        return converter.toDto(newUser);
+
+    }
 
     public UserResponse registerUser(UserRequest request) {
         /*
