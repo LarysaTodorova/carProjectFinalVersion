@@ -13,7 +13,7 @@ import java.nio.file.StandardCopyOption;
 @Service
 public class FileStorageService {
 
-    private final Path FILESTORAGELOCATION = Paths.get("src/main/resources/static/upload");
+//    private final Path FILESTORAGELOCATION = Paths.get("upload");
 
 //    public FileStorageService() {
 //        try {
@@ -22,6 +22,8 @@ public class FileStorageService {
 //            throw new RuntimeException("Could not create upload folder", e);
 //        }
 //    }
+
+    private final Path FILESTORAGELOCATION = Paths.get("src/main/resources/static/upload");
 
     public void storeFile(MultipartFile file) {
 
