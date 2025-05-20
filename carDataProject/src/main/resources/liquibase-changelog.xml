@@ -48,12 +48,13 @@
         </insert>
     </changeSet>
 
-    <changeSet id="insert.default.data.cars" author="Lora">
+    <changeSet id="insert.default.data.cars.v5" author="Lora">
         <insert tableName="cars">
             <column name="model" value="A-7"/>
             <column name="color" value="red"/>
             <column name="year_of_production" value="2024"/>
             <column name="engine" value="diesel"/>
+            <column name="vin" value="999999999"/>
             <column name="mileage" value="10"/>
             <column name="producer_producer_id" value="1"/>
         </insert>
