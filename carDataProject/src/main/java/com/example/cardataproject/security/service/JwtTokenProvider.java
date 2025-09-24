@@ -61,9 +61,8 @@ public class JwtTokenProvider {
                 .parseClaimsJws(token)
                 .getBody();
 
-        // вытаскиваем из claims (из части payload нашего JWT)
+        // вытаскиваем claims (из части payload нашего JWT)
         // из них берем содержимое поля subject
-
         return claims.getSubject();
 
     }
