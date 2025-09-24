@@ -29,6 +29,7 @@
             <column name="color" type="varchar (255)" />
             <column name="year_of_production" type="INT" />
             <column name="engine" type="varchar (255)" />
+            <column name="vin" type="varchar(255)" />
             <column name="mileage" type="INT" />
             <column name="producer_producer_id" type="INT" />
         </createTable>
